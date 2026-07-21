@@ -4,886 +4,1563 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartPay | A Checkout Decision Assistant</title>
+
+<title>SmartPay — See the payment calendar before you choose</title>
 
 <style>
+
 :root{
-  --bg:#08090b;
-  --surface:#111317;
-  --surface2:#181b21;
-  --text:#f5f5f2;
-  --muted:#9298a3;
-  --line:rgba(255,255,255,.11);
-  --accent:#ff5b35;
-  --green:#72d6a2;
-  --yellow:#ffc857;
-  --max:1200px;
+  --paper:#f6f3ee;
+  --white:#ffffff;
+  --ink:#111827;
+  --muted:#687080;
+  --line:#e6e1d9;
+  --blue:#315cff;
+  --blue-dark:#2345c7;
+  --mint:#d9f7e8;
+  --mint-dark:#147a4c;
+  --coral:#ff765d;
+  --coral-soft:#fff0ec;
+  --yellow:#fff1b8;
+  --shadow:0 20px 60px rgba(31,39,55,.08);
+  --radius:24px;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  line-height:1.6;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.5;
 }
 
-a{color:inherit;text-decoration:none}
-
-.container{
-  width:min(100% - 40px,var(--max));
-  margin:auto;
-}
-
-.eyebrow{
-  color:var(--accent);
-  text-transform:uppercase;
-  letter-spacing:.16em;
-  font-size:.75rem;
-  font-weight:800;
-  margin-bottom:20px;
-}
-
-.muted{color:var(--muted)}
-
-section{
-  padding:130px 0;
-  border-bottom:1px solid var(--line);
-}
-
-h1,h2,h3{
-  letter-spacing:-.06em;
-  line-height:.95;
-}
-
-button{
+button,
+input{
   font:inherit;
 }
 
-/* HERO */
-
-.hero{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 75% 20%,rgba(255,91,53,.18),transparent 32%),
-    radial-gradient(circle at 10% 90%,rgba(114,214,162,.08),transparent 25%),
-    var(--bg);
+button{
+  cursor:pointer;
 }
 
-.hero:before{
-  content:"";
-  position:absolute;
-  inset:0;
-  opacity:.12;
-  background-image:
-    linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
-  background-size:70px 70px;
+.container{
+  width:min(1180px,calc(100% - 40px));
+  margin:auto;
 }
 
-.hero-content{
-  position:relative;
-  z-index:2;
-  max-width:900px;
-}
-
-.hero h1{
-  font-size:clamp(4rem,11vw,9rem);
-  margin-bottom:35px;
-}
-
-.hero h1 span{color:var(--accent)}
-
-.hero p{
-  max-width:650px;
-  font-size:clamp(1.2rem,2vw,1.6rem);
-  color:#d8dbe0;
-  margin-bottom:35px;
-}
-
-.hero-meta{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:35px;
-}
-
-.pill{
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:9px 14px;
+.muted{
   color:var(--muted);
-  font-size:.85rem;
-  background:rgba(255,255,255,.03);
 }
 
-.cta{
-  display:inline-flex;
-  padding:15px 21px;
-  background:var(--text);
-  color:var(--bg);
-  border-radius:999px;
-  font-weight:800;
-  transition:.25s;
-}
-
-.cta:hover{
-  background:var(--accent);
-  color:white;
-  transform:translateY(-3px);
-}
-
-/* NAV */
+/* NAVIGATION */
 
 .nav{
   position:sticky;
   top:0;
-  z-index:20;
-  background:rgba(8,9,11,.88);
+  z-index:50;
+  background:rgba(246,243,238,.86);
   backdrop-filter:blur(18px);
   border-bottom:1px solid var(--line);
 }
 
 .nav-inner{
-  max-width:var(--max);
-  margin:auto;
+  height:68px;
   display:flex;
-  gap:25px;
-  overflow-x:auto;
-  padding:14px 20px;
+  align-items:center;
+  justify-content:space-between;
 }
 
-.nav a{
-  white-space:nowrap;
+.logo{
+  font-weight:900;
+  letter-spacing:-.06em;
+  font-size:1.3rem;
+}
+
+.logo span{
+  color:var(--blue);
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.nav-tag{
   color:var(--muted);
-  font-size:.75rem;
+  font-size:.8rem;
+}
+
+.nav-button{
+  border:1px solid var(--ink);
+  background:transparent;
+  color:var(--ink);
+  padding:9px 16px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:.8rem;
+}
+
+/* HERO */
+
+.hero{
+  padding:100px 0 80px;
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr .9fr;
+  gap:80px;
+  align-items:center;
+}
+
+.kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 13px;
+  border-radius:999px;
+  background:var(--white);
+  border:1px solid var(--line);
+  color:var(--muted);
+  font-size:.78rem;
+  font-weight:700;
+  margin-bottom:25px;
+}
+
+.kicker-dot{
+  width:7px;
+  height:7px;
+  background:var(--blue);
+  border-radius:50%;
+}
+
+.hero h1{
+  font-size:clamp(3.5rem,7vw,7rem);
+  line-height:.9;
+  letter-spacing:-.085em;
+  max-width:700px;
+}
+
+.hero h1 span{
+  color:var(--blue);
+}
+
+.hero-copy{
+  font-size:1.2rem;
+  color:var(--muted);
+  max-width:540px;
+  margin-top:28px;
+}
+
+.hero-actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:32px;
+}
+
+.primary-btn{
+  background:var(--blue);
+  color:white;
+  border:0;
+  padding:15px 22px;
+  border-radius:999px;
+  font-weight:800;
+  transition:.2s;
+}
+
+.primary-btn:hover{
+  background:var(--blue-dark);
+  transform:translateY(-2px);
+}
+
+.secondary-btn{
+  background:var(--white);
+  color:var(--ink);
+  border:1px solid var(--line);
+  padding:15px 22px;
+  border-radius:999px;
+  font-weight:800;
+}
+
+/* MINI PRODUCT PREVIEW */
+
+.hero-preview{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  transform:rotate(2deg);
+}
+
+.preview-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 8px 18px;
+}
+
+.preview-brand{
+  font-weight:900;
+  letter-spacing:-.05em;
+}
+
+.preview-badge{
+  background:var(--mint);
+  color:var(--mint-dark);
+  font-size:.7rem;
+  font-weight:800;
+  padding:7px 10px;
+  border-radius:999px;
+}
+
+.preview-product{
+  background:var(--paper);
+  border-radius:20px;
+  padding:22px;
+}
+
+.preview-product h3{
+  font-size:1.5rem;
+  letter-spacing:-.05em;
+}
+
+.preview-product p{
+  color:var(--muted);
+  font-size:.85rem;
+  margin-top:4px;
+}
+
+.preview-price{
+  font-size:2.5rem;
+  font-weight:900;
+  letter-spacing:-.07em;
+  margin-top:25px;
+}
+
+.preview-plan{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border:1px solid var(--blue);
+  background:#f0f3ff;
+  border-radius:14px;
+  padding:15px;
+  margin-top:20px;
+}
+
+.preview-plan small{
+  color:var(--muted);
+}
+
+/* SECTION */
+
+section{
+  padding:110px 0;
+}
+
+.section-label{
+  color:var(--blue);
+  font-size:.72rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:900;
+  margin-bottom:18px;
+}
+
+.section-title{
+  font-size:clamp(2.8rem,6vw,5.5rem);
+  line-height:.95;
+  letter-spacing:-.08em;
+  max-width:850px;
+}
+
+.section-copy{
+  max-width:600px;
+  color:var(--muted);
+  font-size:1.1rem;
+  margin-top:24px;
+}
+
+/* IDEA */
+
+.idea-section{
+  background:var(--ink);
+  color:white;
+}
+
+.idea-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  align-items:center;
+}
+
+.idea-section .section-label{
+  color:#8ea3ff;
+}
+
+.idea-section .section-copy{
+  color:#aeb5c4;
+}
+
+.idea-visual{
+  min-height:390px;
+  position:relative;
+  padding:35px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:30px;
+  background:#1a2030;
+  overflow:hidden;
+}
+
+.idea-visual:before{
+  content:"";
+  position:absolute;
+  left:65px;
+  right:65px;
+  top:50%;
+  height:1px;
+  background:rgba(255,255,255,.18);
+}
+
+.calendar-labels{
+  display:flex;
+  justify-content:space-between;
+  color:#7f899b;
+  font-size:.72rem;
   text-transform:uppercase;
   letter-spacing:.1em;
 }
 
-.nav a:hover{color:var(--accent)}
-
-/* HEADINGS */
-
-.section-heading{
-  max-width:780px;
-  margin-bottom:60px;
+.calendar-node{
+  position:absolute;
+  top:calc(50% - 18px);
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.7rem;
+  font-weight:900;
 }
 
-.section-heading h2{
-  font-size:clamp(3rem,7vw,6rem);
-  margin-bottom:25px;
+.node-one{
+  left:17%;
+  background:#8ea3ff;
 }
 
-.section-heading p{
-  color:var(--muted);
-  font-size:1.1rem;
-  max-width:650px;
+.node-two{
+  left:47%;
+  background:#8ee0b6;
 }
 
-/* PROBLEM */
-
-.problem-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
+.node-three{
+  left:77%;
+  background:#ff927d;
 }
 
-.problem-card{
-  background:var(--surface);
-  border:1px solid var(--line);
-  padding:35px;
-  min-height:300px;
+.calendar-card{
+  position:absolute;
+  width:145px;
+  padding:13px;
+  border-radius:14px;
+  background:white;
+  color:var(--ink);
+  font-size:.75rem;
+  box-shadow:0 15px 30px rgba(0,0,0,.2);
 }
 
-.problem-card h3{
-  font-size:2.5rem;
-  margin:30px 0 15px;
+.calendar-card strong{
+  display:block;
+  font-size:1rem;
+  margin-top:4px;
 }
 
-.problem-card p{color:var(--muted)}
+.card-one{
+  left:8%;
+  top:26%;
+}
 
-.problem-card.highlight{
-  border-color:rgba(255,91,53,.5);
-  background:linear-gradient(135deg,rgba(255,91,53,.12),var(--surface));
+.card-two{
+  left:38%;
+  bottom:18%;
+}
+
+.card-three{
+  right:5%;
+  top:20%;
 }
 
 /* DEMO */
 
+.demo-section{
+  background:#eeeae3;
+}
+
+.demo-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:30px;
+  margin-bottom:45px;
+}
+
+.demo-header .section-copy{
+  margin-top:0;
+}
+
 .demo-shell{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:25px;
+  grid-template-columns:380px 1fr;
+  gap:18px;
   align-items:start;
 }
 
-.demo-panel{
-  background:var(--surface);
+.panel{
+  background:var(--white);
   border:1px solid var(--line);
-  padding:30px;
+  border-radius:var(--radius);
+  padding:26px;
+  box-shadow:0 10px 30px rgba(31,39,55,.04);
 }
 
-.demo-panel h3{
-  font-size:2rem;
-  margin-bottom:25px;
+.panel-title{
+  font-size:1.25rem;
+  font-weight:900;
+  letter-spacing:-.04em;
+  margin-bottom:20px;
 }
 
-.field{
-  margin-bottom:25px;
+.product-selector{
+  background:var(--paper);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:24px;
 }
 
-.field label{
-  display:block;
+.product-icon{
+  width:52px;
+  height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:15px;
+  background:var(--ink);
+  color:white;
+  font-size:1.4rem;
+  margin-bottom:15px;
+}
+
+.product-selector h3{
+  font-size:1.4rem;
+  letter-spacing:-.05em;
+}
+
+.product-selector p{
   color:var(--muted);
   font-size:.85rem;
-  margin-bottom:9px;
+}
+
+.product-price{
+  font-size:2.3rem;
+  font-weight:900;
+  letter-spacing:-.07em;
+  margin-top:16px;
+}
+
+.label{
+  display:block;
+  color:var(--muted);
+  font-size:.75rem;
+  font-weight:700;
+  margin-bottom:8px;
 }
 
 input[type="number"]{
   width:100%;
-  background:var(--surface2);
-  color:var(--text);
   border:1px solid var(--line);
-  padding:14px;
-  font-size:1.2rem;
-  border-radius:8px;
+  border-radius:12px;
+  padding:13px;
+  background:white;
+  color:var(--ink);
+  font-size:1.1rem;
+  font-weight:700;
 }
 
-.scenario-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-}
-
-.scenario{
-  background:transparent;
-  border:1px solid var(--line);
-  color:var(--muted);
-  padding:15px 8px;
-  cursor:pointer;
-  border-radius:8px;
-  font-size:.8rem;
-  transition:.2s;
-}
-
-.scenario:hover,
-.scenario.active{
-  background:var(--accent);
-  color:white;
-  border-color:var(--accent);
+.commitment-list{
+  margin-top:20px;
 }
 
 .commitment{
   display:flex;
   justify-content:space-between;
-  border-bottom:1px solid var(--line);
+  align-items:center;
   padding:13px 0;
+  border-bottom:1px solid var(--line);
+  font-size:.85rem;
+}
+
+.commitment span:first-child{
+  color:var(--muted);
 }
 
 .commitment span:last-child{
   font-weight:800;
 }
 
-.plan-grid{
-  display:grid;
-  gap:10px;
+/* CALENDAR */
+
+.calendar-panel{
+  min-height:600px;
 }
 
-.plan{
-  border:1px solid var(--line);
-  padding:20px;
-  cursor:pointer;
-  transition:.2s;
-  background:var(--surface2);
-}
-
-.plan:hover,
-.plan.recommended{
-  border-color:var(--green);
-  transform:translateX(5px);
-}
-
-.plan-top{
+.calendar-top{
   display:flex;
   justify-content:space-between;
-  align-items:center;
+  align-items:start;
+  gap:20px;
+  margin-bottom:25px;
 }
 
-.plan-name{
-  font-weight:800;
-  font-size:1.1rem;
-}
-
-.plan-price{
-  font-size:1.4rem;
-  font-weight:900;
-}
-
-.plan small{color:var(--muted)}
-
-.recommendation{
-  margin-top:25px;
-  padding:25px;
-  background:rgba(114,214,162,.09);
-  border:1px solid rgba(114,214,162,.35);
-}
-
-.recommendation h4{
-  color:var(--green);
-  font-size:.75rem;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  margin-bottom:10px;
-}
-
-.recommendation h3{
-  font-size:2rem;
-  margin-bottom:12px;
-}
-
-.recommendation p{color:#cfd5d1}
-
-.impact{
-  margin-top:25px;
-}
-
-.impact-row{
-  display:flex;
-  justify-content:space-between;
-  padding:13px 0;
-  border-bottom:1px solid var(--line);
-}
-
-.impact-row strong{color:var(--green)}
-
-/* LOGIC */
-
-.logic-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-
-.logic-card{
-  background:var(--surface);
-  border:1px solid var(--line);
-  padding:25px;
-  min-height:240px;
-}
-
-.logic-card span{
-  color:var(--accent);
-  font-size:2rem;
-  font-weight:900;
-}
-
-.logic-card h3{
+.calendar-top h3{
   font-size:1.5rem;
-  margin:25px 0 12px;
+  letter-spacing:-.05em;
 }
 
-.logic-card p{color:var(--muted)}
-
-/* REVEAL */
-
-.reveal{
-  text-align:center;
-  background:
-    radial-gradient(circle at center,rgba(255,91,53,.12),transparent 40%),
-    var(--bg);
+.calendar-status{
+  padding:8px 12px;
+  border-radius:999px;
+  background:var(--mint);
+  color:var(--mint-dark);
+  font-size:.72rem;
+  font-weight:900;
+  white-space:nowrap;
 }
 
-.reveal h2{
-  font-size:clamp(3rem,8vw,8rem);
-  max-width:950px;
-  margin:auto;
+.timeline{
+  position:relative;
+  margin-top:20px;
+  padding:0 0 20px;
 }
 
-.reveal h2 span{color:var(--accent)}
-
-.reveal p{
-  max-width:650px;
-  color:var(--muted);
-  margin:30px auto;
-  font-size:1.15rem;
-}
-
-/* ROADMAP */
-
-.roadmap{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:2px;
+.timeline-line{
+  position:absolute;
+  top:50px;
+  left:0;
+  right:0;
+  height:2px;
   background:var(--line);
 }
 
-.roadmap-card{
-  background:var(--surface);
-  padding:30px;
-  min-height:280px;
+.months{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
 }
 
-.roadmap-card span{
-  color:var(--accent);
-  font-size:.75rem;
-  letter-spacing:.15em;
-  text-transform:uppercase;
+.month{
+  position:relative;
+  min-height:310px;
+}
+
+.month-name{
+  color:var(--muted);
+  font-size:.72rem;
   font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:28px;
 }
 
-.roadmap-card h3{
-  font-size:2rem;
-  margin:35px 0 15px;
+.month-dot{
+  position:relative;
+  z-index:2;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:var(--ink);
+  border:4px solid var(--white);
+  box-shadow:0 0 0 1px var(--line);
+  margin-bottom:22px;
 }
 
-.roadmap-card p{color:var(--muted)}
-
-/* FINAL */
-
-.final{
-  text-align:center;
-  padding:180px 0;
+.month-events{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
 }
 
-.final h2{
-  font-size:clamp(3.5rem,9vw,9rem);
-  max-width:950px;
-  margin:auto;
+.event{
+  padding:11px;
+  border-radius:12px;
+  background:var(--paper);
+  font-size:.72rem;
+  border:1px solid transparent;
+  transition:.25s;
 }
 
-.final h2 span{color:var(--green)}
-
-.final p{
-  max-width:600px;
-  margin:30px auto;
-  color:var(--muted);
-  font-size:1.2rem;
-}
-
-footer{
-  padding:35px 0;
-  color:var(--muted);
+.event strong{
+  display:block;
   font-size:.85rem;
+  margin-top:3px;
+}
+
+.event.existing{
+  border-color:#ddd8d0;
+}
+
+.event.new{
+  background:#edf1ff;
+  border-color:#bfcaff;
+}
+
+.event.warning{
+  background:var(--coral-soft);
+  border-color:#ffc6ba;
+}
+
+.event small{
+  color:var(--muted);
+}
+
+.calendar-bottom{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin-top:28px;
+}
+
+.pressure-box{
+  background:var(--paper);
+  border-radius:18px;
+  padding:18px;
+}
+
+.pressure-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:13px;
+}
+
+.pressure-header span:first-child{
+  color:var(--muted);
+  font-size:.78rem;
+  font-weight:700;
+}
+
+.pressure-value{
+  font-weight:900;
+}
+
+.pressure-track{
+  height:10px;
+  background:#dedad3;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.pressure-fill{
+  height:100%;
+  width:38%;
+  background:var(--mint-dark);
+  border-radius:99px;
+  transition:.4s;
+}
+
+.selected-plan{
+  background:var(--ink);
+  color:white;
+  border-radius:18px;
+  padding:18px;
+}
+
+.selected-plan small{
+  color:#aeb5c4;
+}
+
+.selected-plan strong{
+  display:block;
+  font-size:1.5rem;
+  margin-top:5px;
+}
+
+/* PLAN SELECTOR */
+
+.plan-selector{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.plan-option{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:16px;
+  text-align:left;
+  transition:.2s;
+}
+
+.plan-option:hover{
+  transform:translateY(-2px);
+  border-color:var(--blue);
+}
+
+.plan-option.active{
+  background:#edf1ff;
+  border:2px solid var(--blue);
+}
+
+.plan-option strong{
+  display:block;
+  font-size:1rem;
+}
+
+.plan-option span{
+  color:var(--muted);
+  font-size:.75rem;
+}
+
+/* ASSISTANT */
+
+.assistant{
+  margin-top:22px;
+  padding:25px;
+  border-radius:20px;
+  background:var(--blue);
+  color:white;
+  display:none;
+}
+
+.assistant.show{
+  display:block;
+  animation:slideUp .4s ease;
+}
+
+@keyframes slideUp{
+  from{
+    opacity:0;
+    transform:translateY(12px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.assistant-label{
+  font-size:.7rem;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:900;
+  opacity:.75;
+}
+
+.assistant h3{
+  font-size:2rem;
+  letter-spacing:-.06em;
+  margin:10px 0;
+}
+
+.assistant p{
+  color:#e5eaff;
+  font-size:.9rem;
+}
+
+.explain-button{
+  margin-top:18px;
+  background:white;
+  color:var(--blue);
+  border:0;
+  padding:11px 15px;
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:900;
+}
+
+/* INSIGHT */
+
+.insight{
+  padding:150px 0;
+}
+
+.insight-inner{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:center;
+}
+
+.insight-quote{
+  font-size:clamp(3rem,6vw,6rem);
+  line-height:.92;
+  letter-spacing:-.09em;
+}
+
+.insight-quote span{
+  color:var(--blue);
+}
+
+.insight-copy{
+  color:var(--muted);
+  font-size:1.15rem;
+}
+
+/* STRATEGY */
+
+.strategy{
+  background:var(--white);
+}
+
+.strategy-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:60px;
+}
+
+.strategy-card{
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:25px;
+  min-height:250px;
+}
+
+.strategy-number{
+  color:var(--blue);
+  font-weight:900;
+  font-size:.8rem;
+}
+
+.strategy-card h3{
+  font-size:1.5rem;
+  letter-spacing:-.05em;
+  margin:35px 0 12px;
+}
+
+.strategy-card p{
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+/* FOOTER */
+
+.footer{
+  padding:50px 0;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:.8rem;
+}
+
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
 }
 
 /* RESPONSIVE */
 
-@media(max-width:900px){
-  .demo-shell,
-  .problem-grid{
+@media(max-width:950px){
+
+  .hero-grid,
+  .idea-grid,
+  .insight-inner{
     grid-template-columns:1fr;
   }
 
-  .logic-grid,
-  .roadmap{
+  .hero-preview{
+    transform:none;
+  }
+
+  .demo-shell{
+    grid-template-columns:1fr;
+  }
+
+  .strategy-grid{
     grid-template-columns:1fr 1fr;
   }
+
 }
 
-@media(max-width:600px){
-  .container{width:min(100% - 28px,var(--max))}
+@media(max-width:650px){
 
-  section{padding:90px 0}
+  .container{
+    width:min(100% - 28px,1180px);
+  }
 
-  .logic-grid,
-  .roadmap{
+  .hero{
+    padding:70px 0;
+  }
+
+  .hero h1{
+    font-size:4.2rem;
+  }
+
+  .demo-header{
+    display:block;
+  }
+
+  .months{
+    grid-template-columns:repeat(6,150px);
+    overflow-x:auto;
+    padding-bottom:20px;
+  }
+
+  .timeline{
+    overflow-x:auto;
+  }
+
+  .calendar-bottom{
     grid-template-columns:1fr;
   }
 
-  .hero h1{font-size:4.5rem}
-
-  .scenario-grid{
+  .plan-selector{
     grid-template-columns:1fr;
   }
+
+  .strategy-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-inner{
+    display:block;
+  }
+
+  .footer-inner p:last-child{
+    margin-top:10px;
+  }
+
 }
+
 </style>
 
 </head>
 
 <body>
 
-<header class="hero" id="top">
-  <div class="container hero-content">
-
-```
-<div class="eyebrow">
-  A conceptual fintech product case study
-</div>
-
-<h1>
-  THE<br>
-  <span>CHECKOUT</span><br>
-  DECISION.
-</h1>
-
-<p>
-  You don't need another payment option.
-  You need to understand the payment options you already have.
-</p>
-
-<div class="hero-meta">
-  <div class="pill">Product strategy</div>
-  <div class="pill">Fintech UX</div>
-  <div class="pill">Decision assistant</div>
-</div>
-
-<a class="cta" href="#demo">
-  Try SmartPay ↓
-</a>
-```
-
-  </div>
-</header>
-
 <nav class="nav">
-  <div class="nav-inner">
-    <a href="#problem">01 Problem</a>
-    <a href="#demo">02 Demo</a>
-    <a href="#logic">03 Logic</a>
-    <a href="#strategy">04 Strategy</a>
+  <div class="container nav-inner">
+
+```
+<div class="logo">
+  Smart<span>Pay</span>
+</div>
+
+<div class="nav-right">
+  <span class="nav-tag">A conceptual fintech product</span>
+  <a href="#demo" class="nav-button">Try the demo</a>
+</div>
+```
+
   </div>
 </nav>
 
-<section id="problem">
-  <div class="container">
+<main>
+
+<section class="hero">
+
+  <div class="container hero-grid">
 
 ```
-<div class="section-heading">
-  <div class="eyebrow">01 · The problem</div>
+<div>
 
-  <h2>
-    The checkout sees one purchase.
-    The customer sees everything.
-  </h2>
+  <div class="kicker">
+    <span class="kicker-dot"></span>
+    A checkout decision assistant
+  </div>
 
-  <p>
-    A BNPL checkout typically presents payment options.
-    But the customer is making a decision within a much larger payment calendar.
+  <h1>
+    See the payment calendar <span>before</span> you choose.
+  </h1>
+
+  <p class="hero-copy">
+    A conceptual product experience exploring how a BNPL checkout
+    could help customers understand the impact of a new payment plan
+    alongside everything they are already paying for.
   </p>
-</div>
 
-<div class="problem-grid">
+  <div class="hero-actions">
 
-  <div class="problem-card">
-    <div class="eyebrow">The checkout</div>
-    <h3>SAR 3,499</h3>
-    <p>
-      A single purchase.
-      A few monthly payment options.
-      A decision that appears simple.
-    </p>
+    <a href="#demo" class="primary-btn">
+      Try the experience ↓
+    </a>
+
+    <a href="#idea" class="secondary-btn">
+      Why this exists
+    </a>
+
   </div>
 
-  <div class="problem-card highlight">
-    <div class="eyebrow">The customer</div>
-    <h3>SAR 3,499 + everything else.</h3>
-    <p>
-      Existing commitments.
-      Upcoming due dates.
-      Multiple active plans.
-      The customer's real decision is not just “Can I pay this?”
-    </p>
+</div>
+
+<div class="hero-preview">
+
+  <div class="preview-top">
+
+    <div class="preview-brand">
+      checkout
+    </div>
+
+    <div class="preview-badge">
+      payment-aware
+    </div>
+
+  </div>
+
+  <div class="preview-product">
+
+    <div class="product-icon">⌁</div>
+
+    <h3>MacBook Air</h3>
+
+    <p>Midnight · 13-inch</p>
+
+    <div class="preview-price">
+      SAR 4,299
+    </div>
+
+    <div class="preview-plan">
+
+      <div>
+        <strong>Pay in 6</strong>
+        <small>SAR 716.50 / month</small>
+      </div>
+
+      <strong>→</strong>
+
+    </div>
+
   </div>
 
 </div>
 ```
 
   </div>
+
 </section>
 
-<section id="demo">
+<section class="idea-section" id="idea">
+
+  <div class="container idea-grid">
+
+```
+<div>
+
+  <div class="section-label">
+    The idea
+  </div>
+
+  <h2 class="section-title">
+    A checkout is a moment.
+    A payment plan is a timeline.
+  </h2>
+
+  <p class="section-copy">
+    The customer does not experience a new installment plan in isolation.
+    They experience it alongside every other payment already on their calendar.
+  </p>
+
+</div>
+
+<div class="idea-visual">
+
+  <div class="calendar-labels">
+    <span>Now</span>
+    <span>Month 2</span>
+    <span>Month 4</span>
+    <span>Month 6</span>
+  </div>
+
+  <div class="calendar-node node-one">1</div>
+  <div class="calendar-node node-two">2</div>
+  <div class="calendar-node node-three">3</div>
+
+  <div class="calendar-card card-one">
+    Existing payment
+    <strong>SAR 450</strong>
+  </div>
+
+  <div class="calendar-card card-two">
+    New purchase
+    <strong>SAR 716</strong>
+  </div>
+
+  <div class="calendar-card card-three">
+    Existing payment
+    <strong>SAR 800</strong>
+  </div>
+
+</div>
+```
+
+  </div>
+
+</section>
+
+<section class="demo-section" id="demo">
 
   <div class="container">
 
 ```
-<div class="section-heading">
-  <div class="eyebrow">02 · Try the concept</div>
+<div class="demo-header">
 
-  <h2>
-    What would you recommend?
-  </h2>
+  <div>
 
-  <p>
-    Adjust the simulated payment context.
-    SmartPay will recommend a plan and explain the reasoning behind it.
+    <div class="section-label">
+      Try the product
+    </div>
+
+    <h2 class="section-title">
+      Make the decision yourself.
+    </h2>
+
+  </div>
+
+  <p class="section-copy">
+    Change the payment plan and watch the payment calendar change with it.
   </p>
+
 </div>
 
 <div class="demo-shell">
 
-  <div class="demo-panel">
+  <div class="panel">
 
-    <h3>Your purchase</h3>
-
-    <div class="field">
-      <label>Purchase amount</label>
-      <input id="purchaseAmount" type="number" value="3499" min="100">
+    <div class="panel-title">
+      Your purchase
     </div>
 
-    <div class="field">
-      <label>Current payment load</label>
+    <div class="product-selector">
 
-      <div class="scenario-grid">
+      <div class="product-icon">⌁</div>
 
-        <button class="scenario active" data-load="light">
-          Light
-        </button>
+      <h3>MacBook Air</h3>
 
-        <button class="scenario" data-load="moderate">
-          Moderate
-        </button>
+      <p>Midnight · 13-inch</p>
 
-        <button class="scenario" data-load="heavy">
-          Heavy
-        </button>
-
+      <div class="product-price" id="productPrice">
+        SAR 4,299
       </div>
+
     </div>
 
-    <div class="field">
-      <label>Upcoming commitments</label>
+    <label class="label">
+      Change purchase amount
+    </label>
+
+    <input
+      type="number"
+      id="amountInput"
+      value="4299"
+      min="100"
+    >
+
+    <div class="commitment-list">
 
       <div class="commitment">
-        <span>Next 30 days</span>
-        <span id="next30">SAR 450</span>
-      </div>
-
-      <div class="commitment">
-        <span>Next 60 days</span>
-        <span id="next60">SAR 800</span>
+        <span>Existing payment · Month 1</span>
+        <span>SAR 450</span>
       </div>
 
       <div class="commitment">
-        <span>Existing monthly load</span>
-        <span id="existingLoad">SAR 700</span>
+        <span>Existing payment · Month 2</span>
+        <span>SAR 800</span>
       </div>
+
+      <div class="commitment">
+        <span>Existing payment · Month 4</span>
+        <span>SAR 600</span>
+      </div>
+
     </div>
+
+    <div class="panel-title" style="margin-top:28px;">
+      Choose a plan
+    </div>
+
+    <div class="plan-selector">
+
+      <button class="plan-option" data-months="4">
+        <strong>Pay in 4</strong>
+        <span id="plan4">SAR 1,075 / mo</span>
+      </button>
+
+      <button class="plan-option active" data-months="6">
+        <strong>Pay in 6</strong>
+        <span id="plan6">SAR 717 / mo</span>
+      </button>
+
+      <button class="plan-option" data-months="12">
+        <strong>Pay in 12</strong>
+        <span id="plan12">SAR 358 / mo</span>
+      </button>
+
+    </div>
+
+    <button
+      class="primary-btn"
+      id="assistantButton"
+      style="width:100%;margin-top:20px;"
+    >
+      Ask SmartPay for a second opinion
+    </button>
 
   </div>
 
-  <div class="demo-panel">
+  <div class="panel calendar-panel">
 
-    <h3>Available plans</h3>
+    <div class="calendar-top">
 
-    <div class="plan-grid">
+      <div>
 
-      <div class="plan" data-months="4">
-        <div class="plan-top">
-          <div class="plan-name">Pay in 4</div>
-          <div class="plan-price" id="price4">SAR 875</div>
+        <div class="panel-title">
+          Your payment calendar
         </div>
-        <small>Higher monthly payment · Shorter duration</small>
+
+        <p class="muted">
+          See how the new commitment fits alongside your existing payments.
+        </p>
+
       </div>
 
-      <div class="plan" data-months="6">
-        <div class="plan-top">
-          <div class="plan-name">Pay in 6</div>
-          <div class="plan-price" id="price6">SAR 583</div>
-        </div>
-        <small>Balanced monthly payment · Medium duration</small>
-      </div>
-
-      <div class="plan" data-months="12">
-        <div class="plan-top">
-          <div class="plan-name">Pay in 12</div>
-          <div class="plan-price" id="price12">SAR 292</div>
-        </div>
-        <small>Lower monthly payment · Longer duration</small>
+      <div class="calendar-status" id="calendarStatus">
+        Manageable
       </div>
 
     </div>
 
-    <div class="recommendation">
+    <div class="timeline">
 
-      <h4>SmartPay recommendation</h4>
+      <div class="timeline-line"></div>
 
-      <h3 id="recommendationTitle">
-        Pay in 4
+      <div class="months">
+
+        <div class="month">
+
+          <div class="month-name">Month 1</div>
+
+          <div class="month-dot"></div>
+
+          <div class="month-events">
+
+            <div class="event existing">
+              Existing
+              <strong>SAR 450</strong>
+              <small>payment</small>
+            </div>
+
+            <div class="event new" id="event1">
+              New plan
+              <strong>SAR 717</strong>
+              <small>payment</small>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="month">
+
+          <div class="month-name">Month 2</div>
+
+          <div class="month-dot"></div>
+
+          <div class="month-events">
+
+            <div class="event existing">
+              Existing
+              <strong>SAR 800</strong>
+              <small>payment</small>
+            </div>
+
+            <div class="event new" id="event2">
+              New plan
+              <strong>SAR 717</strong>
+              <small>payment</small>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="month">
+
+          <div class="month-name">Month 3</div>
+
+          <div class="month-dot"></div>
+
+          <div class="month-events">
+
+            <div class="event new" id="event3">
+              New plan
+              <strong>SAR 717</strong>
+              <small>payment</small>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="month">
+
+          <div class="month-name">Month 4</div>
+
+          <div class="month-dot"></div>
+
+          <div class="month-events">
+
+            <div class="event existing">
+              Existing
+              <strong>SAR 600</strong>
+              <small>payment</small>
+            </div>
+
+            <div class="event new" id="event4">
+              New plan
+              <strong>SAR 717</strong>
+              <small>payment</small>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="month">
+
+          <div class="month-name">Month 5</div>
+
+          <div class="month-dot"></div>
+
+          <div class="month-events">
+
+            <div class="event new" id="event5">
+              New plan
+              <strong>SAR 717</strong>
+              <small>payment</small>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="month">
+
+          <div class="month-name">Month 6</div>
+
+          <div class="month-dot"></div>
+
+          <div class="month-events">
+
+            <div class="event new" id="event6">
+              New plan
+              <strong>SAR 717</strong>
+              <small>payment</small>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="calendar-bottom">
+
+      <div class="pressure-box">
+
+        <div class="pressure-header">
+
+          <span>Payment concentration</span>
+
+          <span class="pressure-value" id="pressureText">
+            Low
+          </span>
+
+        </div>
+
+        <div class="pressure-track">
+
+          <div
+            class="pressure-fill"
+            id="pressureFill"
+          ></div>
+
+        </div>
+
+      </div>
+
+      <div class="selected-plan">
+
+        <small>Current selection</small>
+
+        <strong id="selectedPlan">
+          Pay in 6 · SAR 717/mo
+        </strong>
+
+      </div>
+
+    </div>
+
+    <div class="assistant" id="assistant">
+
+      <div class="assistant-label">
+        SmartPay recommendation
+      </div>
+
+      <h3 id="assistantTitle">
+        Pay in 6
       </h3>
 
-      <p id="recommendationText">
-        Your current payment context appears relatively light.
-        A shorter repayment period may be preferable.
+      <p id="assistantText">
+        Your payment calendar shows a balance between monthly payment size
+        and repayment duration.
       </p>
 
-    </div>
-
-    <div class="impact">
-
-      <div class="impact-row">
-        <span>Current monthly load</span>
-        <strong id="impactCurrent">SAR 700</strong>
-      </div>
-
-      <div class="impact-row">
-        <span>Recommended plan</span>
-        <strong id="impactPlan">SAR 875</strong>
-      </div>
-
-      <div class="impact-row">
-        <span>Estimated new total</span>
-        <strong id="impactTotal">SAR 1,575</strong>
-      </div>
+      <button class="explain-button">
+        Why this recommendation?
+      </button>
 
     </div>
 
   </div>
 
 </div>
-
-<p class="muted" style="margin-top:25px;font-size:.85rem;">
-  Prototype note: This is a conceptual recommendation engine using simulated payment context,
-  affordability signals, and due-date logic. It is not financial advice or credit underwriting.
-</p>
 ```
 
   </div>
 
 </section>
 
-<section id="logic">
+<section class="insight">
 
-  <div class="container">
+  <div class="container insight-inner">
 
 ```
-<div class="section-heading">
+<div class="insight-quote">
+  The best plan is not always the plan with the <span>lowest monthly payment.</span>
+</div>
 
-  <div class="eyebrow">03 · How it works</div>
+<div class="insight-copy">
 
-  <h2>
-    Not “AI magic.”
-    A decision system.
-  </h2>
+  <div class="section-label">
+    The product insight
+  </div>
 
   <p>
-    The product recommendation is designed around the customer's payment context,
-    not just the purchase amount.
+    A shorter plan may reduce the duration of a commitment but create
+    higher short-term payment concentration.
+  </p>
+
+  <br>
+
+  <p>
+    A longer plan may reduce the immediate monthly impact while extending
+    the customer's repayment timeline.
+  </p>
+
+  <br>
+
+  <p>
+    The right product experience should make this tradeoff visible before
+    the customer commits.
   </p>
 
 </div>
-
-<div class="logic-grid">
-
-  <div class="logic-card">
-    <span>01</span>
-    <h3>Purchase</h3>
-    <p>
-      What is the customer buying and how large is the new commitment?
-    </p>
-  </div>
-
-  <div class="logic-card">
-    <span>02</span>
-    <h3>Affordability</h3>
-    <p>
-      How would each plan change the customer's estimated monthly payment load?
-    </p>
-  </div>
-
-  <div class="logic-card">
-    <span>03</span>
-    <h3>Timing</h3>
-    <p>
-      Would the new payment create concentration around existing due dates?
-    </p>
-  </div>
-
-  <div class="logic-card">
-    <span>04</span>
-    <h3>Recommendation</h3>
-    <p>
-      Present the best-fit option with an explanation the customer can understand.
-    </p>
-  </div>
-
-</div>
 ```
 
   </div>
 
 </section>
 
-<section class="reveal">
+<section class="strategy">
 
   <div class="container">
 
 ```
-<div class="eyebrow">The product insight</div>
+<div class="section-label">
+  Product evolution
+</div>
 
-<h2>
-  The problem isn't <span>payment.</span>
-  It's payment visibility.
+<h2 class="section-title">
+  From payment option to payment context.
 </h2>
 
-<p>
-  The customer does not experience one installment plan in isolation.
-  They experience the combined impact of every payment they have committed to.
-</p>
-```
+<div class="strategy-grid">
+
+  <div class="strategy-card">
+
+    <div class="strategy-number">
+      01 · VISIBILITY
+    </div>
+
+    <h3>Show the calendar</h3>
+
+    <p>
+      Make the impact of each plan visible alongside existing commitments.
+    </p>
 
   </div>
 
-</section>
+  <div class="strategy-card">
 
-<section id="strategy">
+    <div class="strategy-number">
+      02 · COMPARISON
+    </div>
 
-  <div class="container">
+    <h3>Show the tradeoff</h3>
 
-```
-<div class="section-heading">
-
-  <div class="eyebrow">04 · Product strategy</div>
-
-  <h2>
-    From visibility to prevention.
-  </h2>
-
-  <p>
-    SmartPay could evolve from helping customers understand a decision
-    to helping them anticipate the consequences of future commitments.
-  </p>
-
-</div>
-
-<div class="roadmap">
-
-  <div class="roadmap-card">
-    <span>Phase 01</span>
-    <h3>Explain</h3>
     <p>
-      Show customers the monthly and timing impact of each available plan.
+      Help customers understand the difference between monthly impact
+      and repayment duration.
     </p>
+
   </div>
 
-  <div class="roadmap-card">
-    <span>Phase 02</span>
-    <h3>Recommend</h3>
+  <div class="strategy-card">
+
+    <div class="strategy-number">
+      03 · ASSISTANCE
+    </div>
+
+    <h3>Recommend with context</h3>
+
     <p>
-      Suggest a plan based on purchase amount, payment load, and upcoming commitments.
+      Use payment history, affordability signals, and due-date logic to
+      explain a best-fit option.
     </p>
+
   </div>
 
-  <div class="roadmap-card">
-    <span>Phase 03</span>
-    <h3>Anticipate</h3>
-    <p>
-      Identify when a new commitment could create payment concentration or stress.
-    </p>
-  </div>
+  <div class="strategy-card">
 
-  <div class="roadmap-card">
-    <span>Phase 04</span>
-    <h3>Personalize</h3>
+    <div class="strategy-number">
+      04 · ANTICIPATION
+    </div>
+
+    <h3>Think ahead</h3>
+
     <p>
-      Build a more complete payment planning experience across the ecosystem.
+      Eventually help customers understand how future commitments could
+      affect their payment calendar.
     </p>
+
   </div>
 
 </div>
@@ -893,42 +1570,19 @@ footer{
 
 </section>
 
-<section class="final">
+</main>
 
-  <div class="container">
+<footer class="footer">
+
+  <div class="container footer-inner">
 
 ```
-<div class="eyebrow">The takeaway</div>
-
-<h2>
-  Better checkout decisions start with
-  <span>better context.</span>
-</h2>
-
 <p>
-  SmartPay is not designed to decide for the customer.
-  It is designed to make the consequences of each decision easier to understand.
+  SmartPay · A conceptual fintech product case study by Aliya Zeya
 </p>
 
-<a href="#top" class="cta">
-  Restart the experience ↑
-</a>
-```
-
-  </div>
-
-</section>
-
-<footer>
-
-  <div class="container">
-    <p>
-      © Aliya Zeya · Conceptual fintech product case study
-    </p>
-
-```
-<p style="margin-top:8px;">
-  SmartPay is a conceptual product prototype and does not provide financial advice.
+<p>
+  Prototype only · Not financial advice or credit underwriting
 </p>
 ```
 
@@ -938,216 +1592,260 @@ footer{
 
 <script>
 
-const scenarios = {
+const amountInput =
+document.getElementById("amountInput");
 
-  light:{
-    next30:450,
-    next60:800,
-    existing:700
-  },
+const productPrice =
+document.getElementById("productPrice");
 
-  moderate:{
-    next30:1200,
-    next60:1700,
-    existing:1400
-  },
+const plan4 =
+document.getElementById("plan4");
 
-  heavy:{
-    next30:2600,
-    next60:3500,
-    existing:2400
-  }
+const plan6 =
+document.getElementById("plan6");
 
-};
+const plan12 =
+document.getElementById("plan12");
 
-let currentLoad = "light";
+const selectedPlan =
+document.getElementById("selectedPlan");
 
-const purchaseInput = document.getElementById("purchaseAmount");
+const pressureFill =
+document.getElementById("pressureFill");
 
-const next30 = document.getElementById("next30");
-const next60 = document.getElementById("next60");
-const existingLoad = document.getElementById("existingLoad");
+const pressureText =
+document.getElementById("pressureText");
 
-const recommendationTitle =
-document.getElementById("recommendationTitle");
+const calendarStatus =
+document.getElementById("calendarStatus");
 
-const recommendationText =
-document.getElementById("recommendationText");
+const assistant =
+document.getElementById("assistant");
 
-const impactCurrent =
-document.getElementById("impactCurrent");
+const assistantTitle =
+document.getElementById("assistantTitle");
 
-const impactPlan =
-document.getElementById("impactPlan");
+const assistantText =
+document.getElementById("assistantText");
 
-const impactTotal =
-document.getElementById("impactTotal");
+const assistantButton =
+document.getElementById("assistantButton");
 
-function money(number){
+let selectedMonths = 6;
 
-  return "SAR " + Math.round(number).toLocaleString();
+function money(value){
+
+  return "SAR " + Math.round(value).toLocaleString();
 
 }
 
 function updatePrices(){
 
-  const amount = Number(purchaseInput.value) || 0;
+  const amount =
+  Number(amountInput.value) || 0;
 
-  document.getElementById("price4").textContent =
-  money(amount / 4);
+  productPrice.textContent =
+  money(amount);
 
-  document.getElementById("price6").textContent =
-  money(amount / 6);
+  plan4.textContent =
+  `${money(amount / 4)} / mo`;
 
-  document.getElementById("price12").textContent =
-  money(amount / 12);
+  plan6.textContent =
+  `${money(amount / 6)} / mo`;
 
-  calculateRecommendation();
+  plan12.textContent =
+  `${money(amount / 12)} / mo`;
 
-}
-
-function updateScenario(){
-
-  const scenario = scenarios[currentLoad];
-
-  next30.textContent = money(scenario.next30);
-
-  next60.textContent = money(scenario.next60);
-
-  existingLoad.textContent = money(scenario.existing);
-
-  calculateRecommendation();
+  updateCalendar();
 
 }
 
-function calculateRecommendation(){
+function updateCalendar(){
 
-  const amount = Number(purchaseInput.value) || 0;
+  const amount =
+  Number(amountInput.value) || 0;
 
-  const scenario = scenarios[currentLoad];
+  const monthly =
+  amount / selectedMonths;
 
-  let months;
+  selectedPlan.textContent =
+  `Pay in ${selectedMonths} · ${money(monthly)}/mo`;
 
-  if(currentLoad === "light"){
+  for(let i=1;i<=6;i++){
 
-    months = amount > 5000 ? 6 : 4;
+    const event =
+    document.getElementById(`event${i}`);
 
-  }
+    if(!event) continue;
 
-  else if(currentLoad === "moderate"){
+    if(i <= selectedMonths){
 
-    months = 6;
+      event.style.display = "block";
 
-  }
+      event.querySelector("strong").textContent =
+      money(monthly);
 
-  else{
+    }else{
 
-    months = amount > 2500 ? 12 : 6;
-
-  }
-
-  const monthlyPayment = amount / months;
-
-  document.querySelectorAll(".plan").forEach(plan => {
-
-    plan.classList.remove("recommended");
-
-    if(Number(plan.dataset.months) === months){
-
-      plan.classList.add("recommended");
+      event.style.display = "none";
 
     }
 
-  });
+  }
 
-  recommendationTitle.textContent =
-  `Pay in ${months}`;
+  let pressure;
 
-  if(currentLoad === "light"){
+  if(selectedMonths === 4){
 
-    recommendationText.textContent =
-    `Your current payment context appears relatively light. A shorter repayment period may be preferable because it reduces the duration of the new commitment.`;
+    pressure = 74;
+
+    pressureText.textContent =
+    "High";
+
+    calendarStatus.textContent =
+    "Higher concentration";
+
+    calendarStatus.style.background =
+    "#fff0ec";
+
+    calendarStatus.style.color =
+    "#b63d2a";
 
   }
 
-  else if(currentLoad === "moderate"){
+  else if(selectedMonths === 6){
 
-    recommendationText.textContent =
-    `Your existing payment commitments are moderate. A 6-month plan creates a balance between monthly payment size and repayment duration.`;
+    pressure = 48;
+
+    pressureText.textContent =
+    "Moderate";
+
+    calendarStatus.textContent =
+    "Balanced";
+
+    calendarStatus.style.background =
+    "#d9f7e8";
+
+    calendarStatus.style.color =
+    "#147a4c";
 
   }
 
   else{
 
-    recommendationText.textContent =
-    `Your upcoming payment load is already elevated. A longer plan may reduce near-term payment concentration, although the commitment lasts longer.`;
+    pressure = 25;
+
+    pressureText.textContent =
+    "Lower";
+
+    calendarStatus.textContent =
+    "Lower monthly impact";
+
+    calendarStatus.style.background =
+    "#edf1ff";
+
+    calendarStatus.style.color =
+    "#315cff";
 
   }
 
-  impactCurrent.textContent =
-  money(scenario.existing);
+  pressureFill.style.width =
+  pressure + "%";
 
-  impactPlan.textContent =
-  money(monthlyPayment);
+  if(selectedMonths === 4){
 
-  impactTotal.textContent =
-  money(scenario.existing + monthlyPayment);
+    pressureFill.style.background =
+    "#ff765d";
+
+  }
+
+  else if(selectedMonths === 6){
+
+    pressureFill.style.background =
+    "#147a4c";
+
+  }
+
+  else{
+
+    pressureFill.style.background =
+    "#315cff";
+
+  }
 
 }
 
-document.querySelectorAll(".scenario").forEach(button => {
+document.querySelectorAll(".plan-option").forEach(button => {
 
   button.addEventListener("click",()=>{
 
-    document.querySelectorAll(".scenario")
-    .forEach(btn=>btn.classList.remove("active"));
+    document
+    .querySelectorAll(".plan-option")
+    .forEach(option =>
+      option.classList.remove("active")
+    );
 
     button.classList.add("active");
 
-    currentLoad = button.dataset.load;
+    selectedMonths =
+    Number(button.dataset.months);
 
-    updateScenario();
+    assistant.classList.remove("show");
 
-  });
-
-});
-
-purchaseInput.addEventListener("input",updatePrices);
-
-document.querySelectorAll(".plan").forEach(plan => {
-
-  plan.addEventListener("click",()=>{
-
-    const months = Number(plan.dataset.months);
-
-    const amount = Number(purchaseInput.value) || 0;
-
-    const monthly = amount / months;
-
-    recommendationTitle.textContent =
-    `Pay in ${months}`;
-
-    recommendationText.textContent =
-    `You selected this plan. SmartPay compares it against your current payment context so you can understand how the new monthly commitment changes your estimated payment load.`;
-
-    impactPlan.textContent =
-    money(monthly);
-
-    impactTotal.textContent =
-    money(scenarios[currentLoad].existing + monthly);
-
-    document.querySelectorAll(".plan")
-    .forEach(p=>p.classList.remove("recommended"));
-
-    plan.classList.add("recommended");
+    updateCalendar();
 
   });
 
 });
+
+amountInput.addEventListener(
+  "input",
+  updatePrices
+);
+
+assistantButton.addEventListener(
+  "click",
+  ()=>{
+
+    assistant.classList.add("show");
+
+    if(selectedMonths === 4){
+
+      assistantTitle.textContent =
+      "Consider Pay in 6";
+
+      assistantText.textContent =
+      "Pay in 4 clears the commitment faster, but creates the highest monthly payment concentration. Given the existing payments on your calendar, a 6-month plan may create a more balanced payment profile.";
+
+    }
+
+    else if(selectedMonths === 6){
+
+      assistantTitle.textContent =
+      "Pay in 6";
+
+      assistantText.textContent =
+      "Your current selection creates a balance between monthly payment size and repayment duration. It reduces the monthly impact compared with Pay in 4 without extending the commitment as far as Pay in 12.";
+
+    }
+
+    else{
+
+      assistantTitle.textContent =
+      "Consider Pay in 6";
+
+      assistantText.textContent =
+      "Pay in 12 reduces the immediate monthly payment, but extends the repayment timeline. Based on this simulated calendar, Pay in 6 may offer a more balanced tradeoff.";
+
+    }
+
+  }
+
+);
 
 updatePrices();
 
 </script>
 
 </body>
-</html>         
+</html>
