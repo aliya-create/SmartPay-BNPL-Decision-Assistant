@@ -1,11 +1,9 @@
-# Tamara Express Checkout: SmartPay
+# SmartPay — A Payment-Context Decision Assistant for BNPL
 
-## A payment-context decision assistant for BNPL checkout
-
-A product concept exploring how Tamara could help customers understand the real impact of a new installment plan before committing to it.
+A product concept exploring how BNPL platforms can help customers understand the real impact of a new installment plan before committing to it.
 
 👉 **Live interactive demo:**
-https://aliya-create.github.io/Tamara-Express-Checkout/
+https://aliya-create.github.io/SmartPay-BNPL-Decision-Assistant/
 
 ---
 
