@@ -1,4 +1,4 @@
-# SmartPay — A Payment-Context Decision Assistant for BNPL
+# SmartPay: A Payment-Context Decision Assistant for BNPL
 
 A product concept exploring how BNPL platforms can help customers understand the real impact of a new installment plan before committing to it.
 
