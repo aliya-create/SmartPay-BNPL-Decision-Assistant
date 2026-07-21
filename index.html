@@ -21,7 +21,6 @@
   --mint-dark:#147a4c;
   --coral:#ff765d;
   --coral-soft:#fff0ec;
-  --yellow:#fff1b8;
   --shadow:0 20px 60px rgba(31,39,55,.08);
   --radius:24px;
 }
@@ -628,14 +627,11 @@ input[type="number"]{
   border-color:#bfcaff;
 }
 
-.event.warning{
-  background:var(--coral-soft);
-  border-color:#ffc6ba;
-}
-
 .event small{
   color:var(--muted);
 }
+
+/* CALENDAR BOTTOM */
 
 .calendar-bottom{
   display:grid;
@@ -758,6 +754,7 @@ input[type="number"]{
     opacity:0;
     transform:translateY(12px);
   }
+
   to{
     opacity:1;
     transform:translateY(0);
@@ -955,6 +952,7 @@ input[type="number"]{
 <body>
 
 <nav class="nav">
+
   <div class="container nav-inner">
 
 ```
@@ -963,12 +961,20 @@ input[type="number"]{
 </div>
 
 <div class="nav-right">
-  <span class="nav-tag">A conceptual fintech product</span>
-  <a href="#demo" class="nav-button">Try the demo</a>
+
+  <span class="nav-tag">
+    A conceptual fintech product
+  </span>
+
+  <a href="#demo" class="nav-button">
+    Try the demo
+  </a>
+
 </div>
 ```
 
   </div>
+
 </nav>
 
 <main>
@@ -981,28 +987,39 @@ input[type="number"]{
 <div>
 
   <div class="kicker">
+
     <span class="kicker-dot"></span>
+
     A checkout decision assistant
+
   </div>
 
   <h1>
+
     See the payment calendar <span>before</span> you choose.
+
   </h1>
 
   <p class="hero-copy">
+
     A conceptual product experience exploring how a BNPL checkout
     could help customers understand the impact of a new payment plan
     alongside everything they are already paying for.
+
   </p>
 
   <div class="hero-actions">
 
     <a href="#demo" class="primary-btn">
+
       Try the experience ↓
+
     </a>
 
     <a href="#idea" class="secondary-btn">
+
       Why this exists
+
     </a>
 
   </div>
@@ -1014,35 +1031,68 @@ input[type="number"]{
   <div class="preview-top">
 
     <div class="preview-brand">
+
       checkout
+
     </div>
 
     <div class="preview-badge">
+
       payment-aware
+
     </div>
 
   </div>
 
   <div class="preview-product">
 
-    <div class="product-icon">⌁</div>
+    <div class="product-icon">
 
-    <h3>MacBook Air</h3>
+      ⌁
 
-    <p>Midnight · 13-inch</p>
+    </div>
+
+    <h3>
+
+      MacBook Air
+
+    </h3>
+
+    <p>
+
+      Midnight · 13-inch
+
+    </p>
 
     <div class="preview-price">
+
       SAR 4,299
+
     </div>
 
     <div class="preview-plan">
 
       <div>
-        <strong>Pay in 6</strong>
-        <small>SAR 716.50 / month</small>
+
+        <strong>
+
+          Pay in 6
+
+        </strong>
+
+        <small>
+
+          SAR 716.50 / month
+
+        </small>
+
       </div>
 
-      <strong>→</strong>
+      <strong>
+
+        →
+
+      </strong>
 
     </div>
 
@@ -1063,17 +1113,23 @@ input[type="number"]{
 <div>
 
   <div class="section-label">
+
     The idea
+
   </div>
 
   <h2 class="section-title">
+
     A checkout is a moment.
     A payment plan is a timeline.
+
   </h2>
 
   <p class="section-copy">
+
     The customer does not experience a new installment plan in isolation.
     They experience it alongside every other payment already on their calendar.
+
   </p>
 
 </div>
@@ -1081,29 +1137,69 @@ input[type="number"]{
 <div class="idea-visual">
 
   <div class="calendar-labels">
+
     <span>Now</span>
+
     <span>Month 2</span>
+
     <span>Month 4</span>
+
     <span>Month 6</span>
+
   </div>
 
-  <div class="calendar-node node-one">1</div>
-  <div class="calendar-node node-two">2</div>
-  <div class="calendar-node node-three">3</div>
+  <div class="calendar-node node-one">
+
+    1
+
+  </div>
+
+  <div class="calendar-node node-two">
+
+    2
+
+  </div>
+
+  <div class="calendar-node node-three">
+
+    3
+
+  </div>
 
   <div class="calendar-card card-one">
+
     Existing payment
-    <strong>SAR 450</strong>
+
+    <strong>
+
+      SAR 450
+
+    </strong>
+
   </div>
 
   <div class="calendar-card card-two">
+
     New purchase
-    <strong>SAR 716</strong>
+
+    <strong>
+
+      SAR 716
+
+    </strong>
+
   </div>
 
   <div class="calendar-card card-three">
+
     Existing payment
-    <strong>SAR 800</strong>
+
+    <strong>
+
+      SAR 800
+
+    </strong>
+
   </div>
 
 </div>
@@ -1123,17 +1219,23 @@ input[type="number"]{
   <div>
 
     <div class="section-label">
+
       Try the product
+
     </div>
 
     <h2 class="section-title">
+
       Make the decision yourself.
+
     </h2>
 
   </div>
 
   <p class="section-copy">
+
     Change the payment plan and watch the payment calendar change with it.
+
   </p>
 
 </div>
@@ -1143,82 +1245,179 @@ input[type="number"]{
   <div class="panel">
 
     <div class="panel-title">
+
       Your purchase
+
     </div>
 
     <div class="product-selector">
 
-      <div class="product-icon">⌁</div>
+      <div class="product-icon">
 
-      <h3>MacBook Air</h3>
+        ⌁
 
-      <p>Midnight · 13-inch</p>
+      </div>
+
+      <h3>
+
+        MacBook Air
+
+      </h3>
+
+      <p>
+
+        Midnight · 13-inch
+
+      </p>
 
       <div class="product-price" id="productPrice">
+
         SAR 4,299
+
       </div>
 
     </div>
 
     <label class="label">
+
       Change purchase amount
+
     </label>
 
     <input
+
       type="number"
+
       id="amountInput"
+
       value="4299"
+
       min="100"
+
     >
 
     <div class="commitment-list">
 
       <div class="commitment">
-        <span>Existing payment · Month 1</span>
-        <span>SAR 450</span>
+
+        <span>
+
+          Existing payment · Month 1
+
+        </span>
+
+        <span>
+
+          SAR 450
+
+        </span>
+
       </div>
 
       <div class="commitment">
-        <span>Existing payment · Month 2</span>
-        <span>SAR 800</span>
+
+        <span>
+
+          Existing payment · Month 2
+
+        </span>
+
+        <span>
+
+          SAR 800
+
+        </span>
+
       </div>
 
       <div class="commitment">
-        <span>Existing payment · Month 4</span>
-        <span>SAR 600</span>
+
+        <span>
+
+          Existing payment · Month 4
+
+        </span>
+
+        <span>
+
+          SAR 600
+
+        </span>
+
       </div>
 
     </div>
 
     <div class="panel-title" style="margin-top:28px;">
+
       Choose a plan
+
     </div>
 
     <div class="plan-selector">
 
       <button class="plan-option" data-months="4">
-        <strong>Pay in 4</strong>
-        <span id="plan4">SAR 1,075 / mo</span>
+
+        <strong>
+
+          Pay in 4
+
+        </strong>
+
+        <span id="plan4">
+
+          SAR 1,075 / mo
+
+        </span>
+
       </button>
 
       <button class="plan-option active" data-months="6">
-        <strong>Pay in 6</strong>
-        <span id="plan6">SAR 717 / mo</span>
+
+        <strong>
+
+          Pay in 6
+
+        </strong>
+
+        <span id="plan6">
+
+          SAR 717 / mo
+
+        </span>
+
       </button>
 
       <button class="plan-option" data-months="12">
-        <strong>Pay in 12</strong>
-        <span id="plan12">SAR 358 / mo</span>
+
+        <strong>
+
+          Pay in 12
+
+        </strong>
+
+        <span id="plan12">
+
+          SAR 358 / mo
+
+        </span>
+
       </button>
 
     </div>
 
     <button
+
       class="primary-btn"
+
       id="assistantButton"
+
       style="width:100%;margin-top:20px;"
+
     >
+
       Ask SmartPay for a second opinion
+
     </button>
 
   </div>
@@ -1230,17 +1429,23 @@ input[type="number"]{
       <div>
 
         <div class="panel-title">
+
           Your payment calendar
+
         </div>
 
         <p class="muted">
+
           See how the new commitment fits alongside your existing payments.
+
         </p>
 
       </div>
 
       <div class="calendar-status" id="calendarStatus">
+
         Manageable
+
       </div>
 
     </div>
@@ -1253,22 +1458,50 @@ input[type="number"]{
 
         <div class="month">
 
-          <div class="month-name">Month 1</div>
+          <div class="month-name">
+
+            Month 1
+
+          </div>
 
           <div class="month-dot"></div>
 
           <div class="month-events">
 
             <div class="event existing">
+
               Existing
-              <strong>SAR 450</strong>
-              <small>payment</small>
+
+              <strong>
+
+                SAR 450
+
+              </strong>
+
+              <small>
+
+                payment
+
+              </small>
+
             </div>
 
             <div class="event new" id="event1">
+
               New plan
-              <strong>SAR 717</strong>
-              <small>payment</small>
+
+              <strong>
+
+                SAR 717
+
+              </strong>
+
+              <small>
+
+                payment
+
+              </small>
+
             </div>
 
           </div>
@@ -1277,22 +1510,50 @@ input[type="number"]{
 
         <div class="month">
 
-          <div class="month-name">Month 2</div>
+          <div class="month-name">
+
+            Month 2
+
+          </div>
 
           <div class="month-dot"></div>
 
           <div class="month-events">
 
             <div class="event existing">
+
               Existing
-              <strong>SAR 800</strong>
-              <small>payment</small>
+
+              <strong>
+
+                SAR 800
+
+              </strong>
+
+              <small>
+
+                payment
+
+              </small>
+
             </div>
 
             <div class="event new" id="event2">
+
               New plan
-              <strong>SAR 717</strong>
-              <small>payment</small>
+
+              <strong>
+
+                SAR 717
+
+              </strong>
+
+              <small>
+
+                payment
+
+              </small>
+
             </div>
 
           </div>
@@ -1301,16 +1562,32 @@ input[type="number"]{
 
         <div class="month">
 
-          <div class="month-name">Month 3</div>
+          <div class="month-name">
+
+            Month 3
+
+          </div>
 
           <div class="month-dot"></div>
 
           <div class="month-events">
 
             <div class="event new" id="event3">
+
               New plan
-              <strong>SAR 717</strong>
-              <small>payment</small>
+
+              <strong>
+
+                SAR 717
+
+              </strong>
+
+              <small>
+
+                payment
+
+              </small>
+
             </div>
 
           </div>
@@ -1319,22 +1596,50 @@ input[type="number"]{
 
         <div class="month">
 
-          <div class="month-name">Month 4</div>
+          <div class="month-name">
+
+            Month 4
+
+          </div>
 
           <div class="month-dot"></div>
 
           <div class="month-events">
 
             <div class="event existing">
+
               Existing
-              <strong>SAR 600</strong>
-              <small>payment</small>
+
+              <strong>
+
+                SAR 600
+
+              </strong>
+
+              <small>
+
+                payment
+
+              </small>
+
             </div>
 
             <div class="event new" id="event4">
+
               New plan
-              <strong>SAR 717</strong>
-              <small>payment</small>
+
+              <strong>
+
+                SAR 717
+
+              </strong>
+
+              <small>
+
+                payment
+
+              </small>
+
             </div>
 
           </div>
@@ -1343,16 +1648,32 @@ input[type="number"]{
 
         <div class="month">
 
-          <div class="month-name">Month 5</div>
+          <div class="month-name">
+
+            Month 5
+
+          </div>
 
           <div class="month-dot"></div>
 
           <div class="month-events">
 
             <div class="event new" id="event5">
+
               New plan
-              <strong>SAR 717</strong>
-              <small>payment</small>
+
+              <strong>
+
+                SAR 717
+
+              </strong>
+
+              <small>
+
+                payment
+
+              </small>
+
             </div>
 
           </div>
@@ -1361,16 +1682,32 @@ input[type="number"]{
 
         <div class="month">
 
-          <div class="month-name">Month 6</div>
+          <div class="month-name">
+
+            Month 6
+
+          </div>
 
           <div class="month-dot"></div>
 
           <div class="month-events">
 
             <div class="event new" id="event6">
+
               New plan
-              <strong>SAR 717</strong>
-              <small>payment</small>
+
+              <strong>
+
+                SAR 717
+
+              </strong>
+
+              <small>
+
+                payment
+
+              </small>
+
             </div>
 
           </div>
@@ -1387,10 +1724,16 @@ input[type="number"]{
 
         <div class="pressure-header">
 
-          <span>Payment concentration</span>
+          <span>
+
+            Payment concentration
+
+          </span>
 
           <span class="pressure-value" id="pressureText">
+
             Low
+
           </span>
 
         </div>
@@ -1398,8 +1741,11 @@ input[type="number"]{
         <div class="pressure-track">
 
           <div
+
             class="pressure-fill"
+
             id="pressureFill"
+
           ></div>
 
         </div>
@@ -1408,10 +1754,16 @@ input[type="number"]{
 
       <div class="selected-plan">
 
-        <small>Current selection</small>
+        <small>
+
+          Current selection
+
+        </small>
 
         <strong id="selectedPlan">
+
           Pay in 6 · SAR 717/mo
+
         </strong>
 
       </div>
@@ -1421,20 +1773,28 @@ input[type="number"]{
     <div class="assistant" id="assistant">
 
       <div class="assistant-label">
+
         SmartPay recommendation
+
       </div>
 
       <h3 id="assistantTitle">
+
         Pay in 6
+
       </h3>
 
       <p id="assistantText">
+
         Your payment calendar shows a balance between monthly payment size
         and repayment duration.
+
       </p>
 
       <button class="explain-button">
+
         Why this recommendation?
+
       </button>
 
     </div>
@@ -1454,32 +1814,42 @@ input[type="number"]{
 
 ```
 <div class="insight-quote">
+
   The best plan is not always the plan with the <span>lowest monthly payment.</span>
+
 </div>
 
 <div class="insight-copy">
 
   <div class="section-label">
+
     The product insight
+
   </div>
 
   <p>
+
     A shorter plan may reduce the duration of a commitment but create
     higher short-term payment concentration.
+
   </p>
 
   <br>
 
   <p>
+
     A longer plan may reduce the immediate monthly impact while extending
     the customer's repayment timeline.
+
   </p>
 
   <br>
 
   <p>
+
     The right product experience should make this tradeoff visible before
     the customer commits.
+
   </p>
 
 </div>
@@ -1495,11 +1865,15 @@ input[type="number"]{
 
 ```
 <div class="section-label">
+
   Product evolution
+
 </div>
 
 <h2 class="section-title">
+
   From payment option to payment context.
+
 </h2>
 
 <div class="strategy-grid">
@@ -1507,13 +1881,21 @@ input[type="number"]{
   <div class="strategy-card">
 
     <div class="strategy-number">
+
       01 · VISIBILITY
+
     </div>
 
-    <h3>Show the calendar</h3>
+    <h3>
+
+      Show the calendar
+
+    </h3>
 
     <p>
+
       Make the impact of each plan visible alongside existing commitments.
+
     </p>
 
   </div>
@@ -1521,14 +1903,22 @@ input[type="number"]{
   <div class="strategy-card">
 
     <div class="strategy-number">
+
       02 · COMPARISON
+
     </div>
 
-    <h3>Show the tradeoff</h3>
+    <h3>
+
+      Show the tradeoff
+
+    </h3>
 
     <p>
+
       Help customers understand the difference between monthly impact
       and repayment duration.
+
     </p>
 
   </div>
@@ -1536,14 +1926,22 @@ input[type="number"]{
   <div class="strategy-card">
 
     <div class="strategy-number">
+
       03 · ASSISTANCE
+
     </div>
 
-    <h3>Recommend with context</h3>
+    <h3>
+
+      Recommend with context
+
+    </h3>
 
     <p>
+
       Use payment history, affordability signals, and due-date logic to
       explain a best-fit option.
+
     </p>
 
   </div>
@@ -1551,14 +1949,22 @@ input[type="number"]{
   <div class="strategy-card">
 
     <div class="strategy-number">
+
       04 · ANTICIPATION
+
     </div>
 
-    <h3>Think ahead</h3>
+    <h3>
+
+      Think ahead
+
+    </h3>
 
     <p>
+
       Eventually help customers understand how future commitments could
       affect their payment calendar.
+
     </p>
 
   </div>
@@ -1578,11 +1984,15 @@ input[type="number"]{
 
 ```
 <p>
+
   SmartPay · A conceptual fintech product case study by Aliya Zeya
+
 </p>
 
 <p>
+
   Prototype only · Not financial advice or credit underwriting
+
 </p>
 ```
 
@@ -1799,12 +2209,17 @@ document.querySelectorAll(".plan-option").forEach(button => {
 });
 
 amountInput.addEventListener(
+
   "input",
+
   updatePrices
+
 );
 
 assistantButton.addEventListener(
+
   "click",
+
   ()=>{
 
     assistant.classList.add("show");
